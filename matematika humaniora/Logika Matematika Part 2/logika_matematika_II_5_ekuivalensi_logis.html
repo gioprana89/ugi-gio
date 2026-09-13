@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ekuivalensi Logis | Logika Matematika II</title>
+  <meta name="description" content="Materi interaktif Logika Matematika II tentang ekuivalensi logis, dilengkapi contoh soal, pembahasan, dan kuis interaktif." />
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#182033;
+      --muted:#667085;
+      --primary:#5b4bdb;
+      --primary2:#7c6df2;
+      --soft:#efedff;
+      --line:#e7e9f2;
+      --success:#198754;
+      --success-bg:#eaf8f1;
+      --danger:#d64545;
+      --danger-bg:#fff0f0;
+      --warning:#b7791f;
+      --warning-bg:#fff8e8;
+      --navy:#20264a;
+      --shadow:0 16px 40px rgba(43,48,86,.10);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(124,109,242,.13), transparent 30%),
+        radial-gradient(circle at top right, rgba(242,184,75,.10), transparent 24%),
+        var(--bg);
+      line-height:1.68;
+    }
+
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1080px,calc(100% - 30px));margin:auto}
+
+    .hero{
+      margin:34px 0 24px;
+      background:linear-gradient(135deg,#302a73 0%,#5b4bdb 52%,#7c6df2 100%);
+      color:#fff;
+      border-radius:30px;
+      padding:46px;
+      box-shadow:0 24px 60px rgba(61,50,148,.23);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero:before{
+      content:"";
+      position:absolute;
+      width:260px;height:260px;
+      right:-70px;top:-90px;border-radius:50%;
+      background:rgba(255,255,255,.09);
+    }
+
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.18);
+      padding:7px 12px;border-radius:999px;
+      font-size:.82rem;font-weight:800;
+      text-transform:uppercase;letter-spacing:.08em;
+    }
+
+    h1{
+      font-size:clamp(2.2rem,5vw,4rem);
+      line-height:1.06;letter-spacing:-.04em;
+      margin:14px 0 12px;
+    }
+
+    .hero p{max-width:830px;color:rgba(255,255,255,.88);margin:0;font-size:1.04rem}
+
+    .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+    .pill{
+      padding:8px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.17);
+      background:rgba(255,255,255,.12);
+      font-size:.87rem;font-weight:700;
+    }
+
+    .nav-cards{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0;
+    }
+
+    .nav-card{
+      background:#fff;border:1px solid var(--line);border-radius:18px;
+      padding:17px;box-shadow:0 9px 24px rgba(43,48,86,.05);
+      transition:.2s ease;
+    }
+    .nav-card:hover{transform:translateY(-3px);border-color:#cec9fb}
+    .nav-card strong{display:block;color:var(--primary);margin-bottom:3px}
+    .nav-card span{color:var(--muted);font-size:.89rem}
+
+    .content-card{
+      background:#fff;border:1px solid var(--line);
+      border-radius:23px;padding:30px;margin:18px 0;
+      box-shadow:0 12px 30px rgba(43,48,86,.055);
+    }
+
+    .heading{
+      display:flex;gap:13px;align-items:center;margin-bottom:14px;
+    }
+
+    .icon{
+      width:50px;height:50px;border-radius:15px;
+      display:grid;place-items:center;
+      background:var(--soft);border:1px solid #ddd9ff;
+      font-size:1.4rem;flex:0 0 auto;
+    }
+
+    h2,h3,h4{color:#302a73}
+    .heading h2{margin:0;font-size:1.65rem}
+    h3{margin-top:26px}
+
+    .definition{
+      background:linear-gradient(135deg,#f3f1ff,#fbfbff);
+      border-left:5px solid var(--primary);
+      border-radius:16px;padding:19px 20px;margin:17px 0;
+    }
+
+    .example{
+      background:#fffaf0;border:1px solid #f5dfae;
+      border-radius:16px;padding:18px 20px;margin:17px 0;
+    }
+
+    .key{
+      background:#effaf5;border:1px solid #cceee0;
+      border-radius:16px;padding:18px 20px;margin:17px 0;
+      color:#165e45;font-weight:700;
+    }
+
+    .warning{
+      background:#fff5f5;border:1px solid #ffdada;
+      border-radius:16px;padding:18px 20px;margin:17px 0;
+    }
+
+    .math{
+      font-family:"Cambria Math","Times New Roman",serif;
+      font-size:1.08em;
+    }
+
+    .table-wrap{overflow-x:auto}
+    table{
+      width:100%;border-collapse:separate;border-spacing:0;
+      border:1px solid var(--line);border-radius:16px;
+      overflow:hidden;margin:18px 0;background:#fff;
+    }
+    th,td{
+      padding:12px 13px;text-align:center;
+      border-bottom:1px solid var(--line);
+      border-right:1px solid var(--line);
+      white-space:nowrap;
+    }
+    th{background:#f6f5ff;color:#40389c}
+    th:last-child,td:last-child{border-right:0}
+    tr:last-child td{border-bottom:0}
+
+    .badge{
+      display:inline-block;padding:5px 10px;border-radius:999px;
+      font-weight:800;font-size:.8rem;
+    }
+    .true{background:#e9f8f1;color:#12734b}
+    .false{background:#fff0f0;color:#b32e2e}
+
+    .formula-grid{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:18px 0;
+    }
+    .formula-card{
+      border:1px solid var(--line);border-radius:16px;padding:17px;background:#fbfbfd;
+    }
+    .formula-card strong{display:block;color:var(--primary);margin-bottom:6px}
+
+    .steps{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0;
+    }
+    .step{
+      border:1px solid var(--line);border-radius:15px;padding:16px;background:#fbfbfd;
+    }
+    .step strong{display:block;color:var(--primary);margin-bottom:4px}
+
+    .worked-question{
+      border:1px solid var(--line);border-radius:18px;
+      padding:20px;margin:15px 0;background:#fff;
+    }
+    .worked-question h4{margin:0 0 10px}
+    .answer-box{
+      margin-top:13px;padding:14px 16px;
+      border-radius:14px;background:#f7f5ff;border:1px solid #dedaff;
+    }
+    .answer-box strong{color:#40389c}
+
+    .quiz-intro{
+      background:linear-gradient(135deg,var(--navy),#303969);
+      color:#fff;border-radius:22px;padding:24px;margin-bottom:18px;
+    }
+    .quiz-intro h2{color:#fff;margin:0 0 7px}
+    .quiz-intro p{color:rgba(255,255,255,.84);margin:0}
+
+    .question{
+      background:#fff;border:1px solid var(--line);
+      border-radius:20px;padding:22px;margin:15px 0;
+      box-shadow:0 9px 24px rgba(43,48,86,.045);
+    }
+    .question.correct{border-color:#a6dec4}
+    .question.incorrect{border-color:#ffcaca}
+
+    .q-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:15px}
+    .q-num{
+      width:36px;height:36px;border-radius:11px;display:grid;place-items:center;
+      background:var(--soft);color:var(--primary);font-weight:900;flex:0 0 auto;
+    }
+    .q-text{font-weight:800;padding-top:3px}
+
+    .options{display:grid;gap:9px}
+    .option{
+      display:flex;gap:11px;align-items:flex-start;
+      border:1px solid var(--line);background:#fbfbfd;
+      border-radius:14px;padding:12px 13px;cursor:pointer;transition:.2s ease;
+    }
+    .option:hover{background:#f7f5ff;border-color:#cbc6fb}
+    .option input{margin-top:4px;accent-color:var(--primary)}
+    .option.selected{background:#f3f1ff;border-color:#c9c4fa}
+    .option.good{background:var(--success-bg);border-color:#9ed8bd}
+    .option.bad{background:var(--danger-bg);border-color:#f2b5b5}
+
+    .feedback{
+      display:none;margin-top:12px;padding:12px 14px;border-radius:13px;font-size:.92rem;
+    }
+    .feedback.show{display:block}
+    .feedback.correct{
+      background:var(--success-bg);border:1px solid #c8eadb;color:#12613d;
+    }
+    .feedback.incorrect{
+      background:var(--danger-bg);border:1px solid #ffd3d3;color:#a32929;
+    }
+
+    .actions{
+      display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:25px 0;
+    }
+
+    button{
+      border:0;border-radius:14px;padding:13px 20px;
+      font-weight:800;font-size:.95rem;cursor:pointer;transition:.2s ease;
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,var(--primary),var(--primary2));
+      color:#fff;box-shadow:0 10px 24px rgba(91,75,219,.22);
+    }
+    .btn-primary:hover{transform:translateY(-2px)}
+    .btn-secondary{
+      background:#fff;color:var(--primary);border:1px solid #d7d3ff;
+    }
+
+    .alert{
+      display:none;background:var(--warning-bg);color:#805400;
+      border:1px solid #f0db9c;border-radius:14px;padding:13px 15px;margin:12px 0;
+      font-weight:700;
+    }
+    .alert.show{display:block}
+
+    .result-card{
+      display:none;background:linear-gradient(135deg,#1f2547,#303969);
+      color:#fff;border-radius:23px;padding:27px;margin:22px 0 35px;
+      text-align:center;box-shadow:var(--shadow);
+    }
+    .result-card.show{display:block}
+    .score-circle{
+      width:124px;height:124px;margin:0 auto 14px;border-radius:50%;
+      display:grid;place-items:center;border:8px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.08);font-size:2rem;font-weight:900;
+    }
+    .result-card h2{color:#fff;margin:0 0 6px}
+    .result-card p{color:rgba(255,255,255,.83)}
+    .score-detail{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;
+    }
+    .score-detail div{
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:13px;padding:12px;
+    }
+    .score-detail strong{display:block;font-size:1.13rem}
+
+    footer{
+      text-align:center;color:var(--muted);font-size:.88rem;padding:16px 0 38px;
+    }
+
+    .top-btn{
+      position:fixed;right:20px;bottom:20px;width:45px;height:45px;
+      border-radius:50%;display:grid;place-items:center;
+      background:var(--primary);color:#fff;font-weight:900;
+      box-shadow:0 10px 24px rgba(91,75,219,.25);
+    }
+
+    @media(max-width:760px){
+      .hero{padding:32px 24px;margin-top:18px}
+      .nav-cards,.formula-grid,.steps,.score-detail{grid-template-columns:1fr}
+      .content-card{padding:22px}
+    }
+  </style>
+</head>
+<body id="top">
+<div class="container">
+
+  <header class="hero">
+    <div class="eyebrow">≡ Logika Matematika II</div>
+    <h1>5. Ekuivalensi Logis</h1>
+    <p>
+      Memahami kapan dua pernyataan logika memiliki pola nilai kebenaran yang sama,
+      bagaimana membuktikannya melalui tabel kebenaran, serta mengenali beberapa
+      bentuk ekuivalensi penting dalam logika matematika.
+    </p>
+    <div class="meta">
+      <span class="pill">📘 Materi Inti</span>
+      <span class="pill">✍️ 5 Contoh Soal + Pembahasan</span>
+      <span class="pill">🎯 5 Soal Kuis Interaktif</span>
+    </div>
+  </header>
+
+  <div class="nav-cards">
+    <a class="nav-card" href="#materi">
+      <strong>01 • Materi</strong>
+      <span>Konsep ekuivalensi dan pembuktian dengan tabel.</span>
+    </a>
+    <a class="nav-card" href="#contoh">
+      <strong>02 • Contoh Soal</strong>
+      <span>5 soal lengkap dengan pembahasan.</span>
+    </a>
+    <a class="nav-card" href="#kuis">
+      <strong>03 • Kuis</strong>
+      <span>5 soal dengan skor otomatis.</span>
+    </a>
+  </div>
+
+  <section id="materi" class="content-card">
+    <div class="heading">
+      <div class="icon">≡</div>
+      <h2>Pengertian Ekuivalensi Logis</h2>
+    </div>
+
+    <div class="definition">
+      Dua pernyataan logika dikatakan <strong>ekuivalen secara logis</strong>
+      apabila keduanya mempunyai <strong>nilai kebenaran yang sama untuk setiap
+      kemungkinan nilai variabel</strong>.
+    </div>
+
+    <p>
+      Jika pernyataan A dan B ekuivalen, kita dapat menuliskannya sebagai
+      <span class="math">A ≡ B</span>.
+    </p>
+
+    <div class="example">
+      <strong>Contoh:</strong><br>
+      <span class="math">p → q</span> ekuivalen dengan
+      <span class="math">¬p ∨ q</span>.<br><br>
+      Artinya, untuk setiap kombinasi nilai p dan q, kedua bentuk tersebut
+      menghasilkan nilai kebenaran yang sama.
+    </div>
+
+    <h3>Cara Membuktikan Ekuivalensi</h3>
+    <div class="steps">
+      <div class="step">
+        <strong>Langkah 1</strong>
+        Tulis semua kombinasi nilai kebenaran variabel.
+      </div>
+      <div class="step">
+        <strong>Langkah 2</strong>
+        Hitung nilai kedua pernyataan secara terpisah.
+      </div>
+      <div class="step">
+        <strong>Langkah 3</strong>
+        Bandingkan kolom akhir. Jika selalu sama, keduanya ekuivalen.
+      </div>
+    </div>
+
+    <h3>Ekuivalensi Penting 1: Implikasi</h3>
+    <div class="definition">
+      <span class="math">p → q ≡ ¬p ∨ q</span>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>p</th><th>q</th><th>p → q</th><th>¬p</th><th>¬p ∨ q</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>B</td><td>B</td><td>B</td><td>S</td><td>B</td></tr>
+          <tr><td>B</td><td>S</td><td>S</td><td>S</td><td>S</td></tr>
+          <tr><td>S</td><td>B</td><td>B</td><td>B</td><td>B</td></tr>
+          <tr><td>S</td><td>S</td><td>B</td><td>B</td><td>B</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="key">
+      ✅ Kolom <span class="math">p → q</span> dan
+      <span class="math">¬p ∨ q</span> sama pada semua baris.
+      Karena itu keduanya ekuivalen.
+    </div>
+
+    <h3>Ekuivalensi Penting 2: Kontraposisi</h3>
+    <div class="definition">
+      <span class="math">p → q ≡ ¬q → ¬p</span>
+    </div>
+
+    <p>
+      Implikasi selalu ekuivalen dengan kontraposisinya. Inilah alasan
+      kontraposisi sering digunakan dalam pembuktian matematika.
+    </p>
+
+    <h3>Ekuivalensi Penting 3: Biimplikasi</h3>
+    <div class="definition">
+      <span class="math">p ↔ q ≡ (p → q) ∧ (q → p)</span>
+    </div>
+
+    <h3>Beberapa Hukum Ekuivalensi Dasar</h3>
+    <div class="formula-grid">
+      <div class="formula-card">
+        <strong>Hukum Identitas</strong>
+        <span class="math">p ∧ B ≡ p</span><br>
+        <span class="math">p ∨ S ≡ p</span>
+      </div>
+      <div class="formula-card">
+        <strong>Hukum Dominasi</strong>
+        <span class="math">p ∨ B ≡ B</span><br>
+        <span class="math">p ∧ S ≡ S</span>
+      </div>
+      <div class="formula-card">
+        <strong>Hukum Idempoten</strong>
+        <span class="math">p ∨ p ≡ p</span><br>
+        <span class="math">p ∧ p ≡ p</span>
+      </div>
+      <div class="formula-card">
+        <strong>Hukum Negasi Ganda</strong>
+        <span class="math">¬(¬p) ≡ p</span>
+      </div>
+      <div class="formula-card">
+        <strong>Hukum Komutatif</strong>
+        <span class="math">p ∨ q ≡ q ∨ p</span><br>
+        <span class="math">p ∧ q ≡ q ∧ p</span>
+      </div>
+      <div class="formula-card">
+        <strong>Hukum De Morgan</strong>
+        <span class="math">¬(p ∧ q) ≡ ¬p ∨ ¬q</span><br>
+        <span class="math">¬(p ∨ q) ≡ ¬p ∧ ¬q</span>
+      </div>
+    </div>
+
+    <div class="warning">
+      <strong>Perhatian:</strong> dua pernyataan yang terlihat mirip belum tentu ekuivalen.
+      Ekuivalensi harus dibuktikan melalui pola nilai kebenaran yang sama atau dengan
+      hukum-hukum logika yang sah.
+    </div>
+  </section>
+
+  <section id="contoh" class="content-card">
+    <div class="heading">
+      <div class="icon">✍️</div>
+      <h2>5 Contoh Soal dan Pembahasan</h2>
+    </div>
+
+    <div class="worked-question">
+      <h4>Soal 1</h4>
+      <p>
+        Apakah <span class="math">p → q</span> ekuivalen dengan
+        <span class="math">¬p ∨ q</span>?
+      </p>
+      <div class="answer-box">
+        <strong>Jawaban: Ya, ekuivalen.</strong><br>
+        Untuk setiap kombinasi p dan q, kedua bentuk menghasilkan urutan nilai
+        <strong>B, S, B, B</strong>. Karena kolom akhirnya sama pada seluruh baris,
+        maka <span class="math">p → q ≡ ¬p ∨ q</span>.
+      </div>
+    </div>
+
+    <div class="worked-question">
+      <h4>Soal 2</h4>
+      <p>
+        Apakah <span class="math">p → q</span> ekuivalen dengan
+        <span class="math">q → p</span>?
+      </p>
+      <div class="answer-box">
+        <strong>Jawaban: Tidak selalu ekuivalen.</strong><br>
+        Misalnya ketika <span class="math">p = B</span> dan
+        <span class="math">q = S</span>, maka
+        <span class="math">p → q = S</span>, sedangkan
+        <span class="math">q → p = B</span>. Karena ada baris yang berbeda,
+        keduanya tidak ekuivalen.
+      </div>
+    </div>
+
+    <div class="worked-question">
+      <h4>Soal 3</h4>
+      <p>
+        Sederhanakan <span class="math">¬(¬p)</span>.
+      </p>
+      <div class="answer-box">
+        <strong>Jawaban: p.</strong><br>
+        Berdasarkan hukum negasi ganda,
+        <span class="math">¬(¬p) ≡ p</span>.
+      </div>
+    </div>
+
+    <div class="worked-question">
+      <h4>Soal 4</h4>
+      <p>
+        Tentukan bentuk yang ekuivalen dengan
+        <span class="math">¬(p ∧ q)</span>.
+      </p>
+      <div class="answer-box">
+        <strong>Jawaban:</strong>
+        <span class="math">¬p ∨ ¬q</span>.<br>
+        Berdasarkan Hukum De Morgan,
+        negasi dari konjungsi berubah menjadi disjungsi dari negasi masing-masing pernyataan.
+      </div>
+    </div>
+
+    <div class="worked-question">
+      <h4>Soal 5</h4>
+      <p>
+        Tentukan bentuk yang ekuivalen dengan
+        <span class="math">p ↔ q</span>.
+      </p>
+      <div class="answer-box">
+        <strong>Jawaban:</strong>
+        <span class="math">(p → q) ∧ (q → p)</span>.<br>
+        Biimplikasi berarti hubungan berlaku dua arah, sehingga kedua implikasi
+        harus benar secara bersamaan.
+      </div>
+    </div>
+  </section>
+
+  <section id="kuis" class="content-card">
+    <div class="quiz-intro">
+      <h2>🎯 Kuis Ekuivalensi Logis</h2>
+      <p>Kerjakan 5 soal berikut. Setiap jawaban benar bernilai 20 poin. Skor maksimum 100.</p>
+    </div>
+
+    <div id="alertBox" class="alert">
+      ⚠️ Masih ada soal yang belum dijawab. Silakan lengkapi semua jawaban terlebih dahulu.
+    </div>
+
+    <form id="quizForm">
+
+      <div class="question" data-answer="b">
+        <div class="q-head">
+          <div class="q-num">1</div>
+          <div class="q-text">Dua pernyataan disebut ekuivalen secara logis apabila ...</div>
+        </div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q1" value="a"><span>A. Menggunakan simbol yang sama</span></label>
+          <label class="option"><input type="radio" name="q1" value="b"><span>B. Memiliki nilai kebenaran yang sama pada setiap kemungkinan</span></label>
+          <label class="option"><input type="radio" name="q1" value="c"><span>C. Selalu menggunakan dua variabel</span></label>
+          <label class="option"><input type="radio" name="q1" value="d"><span>D. Keduanya selalu bernilai benar</span></label>
+        </div>
+        <div class="feedback" data-explanation="Ekuivalensi logis berarti kedua bentuk memiliki nilai kebenaran yang sama untuk setiap kombinasi nilai variabel."></div>
+      </div>
+
+      <div class="question" data-answer="c">
+        <div class="q-head">
+          <div class="q-num">2</div>
+          <div class="q-text">Bentuk yang ekuivalen dengan p → q adalah ...</div>
+        </div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q2" value="a"><span>A. p ∧ q</span></label>
+          <label class="option"><input type="radio" name="q2" value="b"><span>B. p ∨ ¬q</span></label>
+          <label class="option"><input type="radio" name="q2" value="c"><span>C. ¬p ∨ q</span></label>
+          <label class="option"><input type="radio" name="q2" value="d"><span>D. ¬p ∧ q</span></label>
+        </div>
+        <div class="feedback" data-explanation="Implikasi p → q ekuivalen dengan ¬p ∨ q. Kedua bentuk mempunyai pola nilai kebenaran yang sama."></div>
+      </div>
+
+      <div class="question" data-answer="a">
+        <div class="q-head">
+          <div class="q-num">3</div>
+          <div class="q-text">Bentuk yang ekuivalen dengan ¬(p ∨ q) menurut Hukum De Morgan adalah ...</div>
+        </div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q3" value="a"><span>A. ¬p ∧ ¬q</span></label>
+          <label class="option"><input type="radio" name="q3" value="b"><span>B. ¬p ∨ ¬q</span></label>
+          <label class="option"><input type="radio" name="q3" value="c"><span>C. p ∧ q</span></label>
+          <label class="option"><input type="radio" name="q3" value="d"><span>D. p ∨ q</span></label>
+        </div>
+        <div class="feedback" data-explanation="Hukum De Morgan menyatakan ¬(p ∨ q) ≡ ¬p ∧ ¬q."></div>
+      </div>
+
+      <div class="question" data-answer="d">
+        <div class="q-head">
+          <div class="q-num">4</div>
+          <div class="q-text">Bentuk yang selalu ekuivalen dengan p → q adalah ...</div>
+        </div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q4" value="a"><span>A. q → p</span></label>
+          <label class="option"><input type="radio" name="q4" value="b"><span>B. ¬p → ¬q</span></label>
+          <label class="option"><input type="radio" name="q4" value="c"><span>C. p ↔ q</span></label>
+          <label class="option"><input type="radio" name="q4" value="d"><span>D. ¬q → ¬p</span></label>
+        </div>
+        <div class="feedback" data-explanation="Implikasi p → q selalu ekuivalen dengan kontraposisinya, yaitu ¬q → ¬p."></div>
+      </div>
+
+      <div class="question" data-answer="b">
+        <div class="q-head">
+          <div class="q-num">5</div>
+          <div class="q-text">Berdasarkan hukum negasi ganda, ¬(¬p) ekuivalen dengan ...</div>
+        </div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q5" value="a"><span>A. ¬p</span></label>
+          <label class="option"><input type="radio" name="q5" value="b"><span>B. p</span></label>
+          <label class="option"><input type="radio" name="q5" value="c"><span>C. p ∧ p</span></label>
+          <label class="option"><input type="radio" name="q5" value="d"><span>D. p ∨ ¬p</span></label>
+        </div>
+        <div class="feedback" data-explanation="Negasi ganda mengembalikan nilai pernyataan semula, sehingga ¬(¬p) ≡ p."></div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-primary" id="submitBtn">✅ Periksa Jawaban</button>
+        <button type="button" class="btn-secondary" id="resetBtn">↻ Ulangi Kuis</button>
+      </div>
+    </form>
+
+    <div class="result-card" id="resultCard">
+      <div class="score-circle" id="scoreCircle">0</div>
+      <h2 id="resultTitle">Hasil Kuis</h2>
+      <p id="resultMessage"></p>
+      <div class="score-detail">
+        <div><strong id="correctCount">0</strong>Jawaban Benar</div>
+        <div><strong id="wrongCount">0</strong>Jawaban Salah</div>
+        <div><strong id="scorePercent">0%</strong>Persentase</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <strong>Matematika Humaniora — Logika Matematika II</strong><br>
+    Materi 5: Ekuivalensi Logis
+  </footer>
+</div>
+
+<a href="#top" class="top-btn" title="Kembali ke atas">↑</a>
+
+<script>
+  const form = document.getElementById('quizForm');
+  const questions = [...document.querySelectorAll('.question')];
+  const submitBtn = document.getElementById('submitBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const resultCard = document.getElementById('resultCard');
+  const alertBox = document.getElementById('alertBox');
+
+  document.querySelectorAll('.option input').forEach(input => {
+    input.addEventListener('change', () => {
+      const question = input.closest('.question');
+      question.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+      input.closest('.option').classList.add('selected');
+    });
+  });
+
+  submitBtn.addEventListener('click', () => {
+    let unanswered = 0;
+
+    questions.forEach((q, i) => {
+      if (!form.querySelector(`input[name="q${i+1}"]:checked`)) unanswered++;
+    });
+
+    if (unanswered > 0) {
+      alertBox.classList.add('show');
+      alertBox.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    alertBox.classList.remove('show');
+    let correct = 0;
+
+    questions.forEach((q, i) => {
+      const answer = q.dataset.answer;
+      const selected = form.querySelector(`input[name="q${i+1}"]:checked`);
+      const feedback = q.querySelector('.feedback');
+      const explanation = feedback.dataset.explanation;
+
+      q.classList.remove('correct','incorrect');
+      q.querySelectorAll('.option').forEach(o => o.classList.remove('good','bad'));
+
+      const correctOption = q.querySelector(`input[value="${answer}"]`).closest('.option');
+
+      if (selected.value === answer) {
+        correct++;
+        q.classList.add('correct');
+        selected.closest('.option').classList.add('good');
+        feedback.className = 'feedback show correct';
+        feedback.innerHTML = '✅ <strong>Benar.</strong> ' + explanation;
+      } else {
+        q.classList.add('incorrect');
+        selected.closest('.option').classList.add('bad');
+        correctOption.classList.add('good');
+        feedback.className = 'feedback show incorrect';
+        feedback.innerHTML = '❌ <strong>Belum tepat.</strong> ' + explanation;
+      }
+    });
+
+    const wrong = questions.length - correct;
+    const score = correct * 20;
+
+    document.getElementById('scoreCircle').textContent = score;
+    document.getElementById('correctCount').textContent = correct;
+    document.getElementById('wrongCount').textContent = wrong;
+    document.getElementById('scorePercent').textContent = score + '%';
+
+    let title, message;
+
+    if (score === 100) {
+      title = '🏆 Sempurna!';
+      message = 'Anda sudah memahami ekuivalensi logis dengan sangat baik.';
+    } else if (score >= 80) {
+      title = '🌟 Sangat Baik';
+      message = 'Anda sudah mampu mengenali beberapa bentuk ekuivalensi penting.';
+    } else if (score >= 60) {
+      title = '👍 Baik';
+      message = 'Pemahaman dasar sudah baik. Tinjau kembali Hukum De Morgan dan ekuivalensi implikasi.';
+    } else {
+      title = '💡 Perlu Mengulang Materi';
+      message = 'Pelajari kembali cara membandingkan kolom tabel kebenaran dan hukum-hukum ekuivalensi dasar.';
+    }
+
+    document.getElementById('resultTitle').textContent = title;
+    document.getElementById('resultMessage').textContent = message;
+    resultCard.classList.add('show');
+    resultCard.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+
+  resetBtn.addEventListener('click', () => {
+    form.reset();
+    questions.forEach(q => {
+      q.classList.remove('correct','incorrect');
+      q.querySelectorAll('.option').forEach(o => o.classList.remove('selected','good','bad'));
+      const feedback = q.querySelector('.feedback');
+      feedback.className = 'feedback';
+      feedback.innerHTML = '';
+    });
+    alertBox.classList.remove('show');
+    resultCard.classList.remove('show');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+</script>
+
+</body>
+</html>

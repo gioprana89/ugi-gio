@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logika Matematika II</title>
+  <meta name="description" content="Halaman utama materi Logika Matematika II yang berisi tautan ke semua topik pembelajaran." />
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#182033;
+      --muted:#667085;
+      --primary:#5b4bdb;
+      --primary2:#7c6df2;
+      --soft:#efedff;
+      --line:#e7e9f2;
+      --navy:#20264a;
+      --gold:#f4b740;
+      --shadow:0 18px 40px rgba(43,48,86,.10);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(124,109,242,.13), transparent 30%),
+        radial-gradient(circle at top right, rgba(244,183,64,.12), transparent 24%),
+        var(--bg);
+      line-height:1.65;
+    }
+
+    a{text-decoration:none;color:inherit}
+    .container{width:min(1180px,calc(100% - 28px));margin:auto}
+
+    .hero{
+      margin:30px 0 24px;
+      background:linear-gradient(135deg,#2b2868 0%, #5b4bdb 55%, #7c6df2 100%);
+      color:#fff;
+      border-radius:32px;
+      padding:46px;
+      box-shadow:0 25px 60px rgba(65,55,160,.25);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      width:280px;height:280px;
+      right:-90px;top:-100px;
+      background:rgba(255,255,255,.10);
+      border-radius:50%;
+    }
+
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.18);
+      padding:8px 14px;border-radius:999px;
+      font-size:.83rem;font-weight:800;letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    h1{
+      margin:16px 0 12px;
+      font-size:clamp(2.2rem,5vw,4rem);
+      line-height:1.05;
+      letter-spacing:-.04em;
+    }
+
+    .hero p{
+      max-width:840px;
+      color:rgba(255,255,255,.9);
+      margin:0;
+      font-size:1.04rem;
+    }
+
+    .hero-meta{
+      display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;
+    }
+
+    .hero-pill{
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.12);
+      font-size:.88rem;
+      font-weight:700;
+    }
+
+    .section-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:28px;
+      box-shadow:0 12px 30px rgba(43,48,86,.06);
+      margin-bottom:24px;
+    }
+
+    .section-head{
+      display:flex;align-items:center;gap:14px;margin-bottom:8px;
+    }
+
+    .section-icon{
+      width:52px;height:52px;border-radius:16px;
+      display:grid;place-items:center;
+      background:var(--soft);
+      border:1px solid #ddd9ff;
+      font-size:1.45rem;
+      flex:0 0 auto;
+    }
+
+    .section-head h2{
+      margin:0;
+      color:#302a73;
+      font-size:1.65rem;
+    }
+
+    .section-sub{
+      color:var(--muted);
+      margin:0 0 18px 66px;
+      font-size:.98rem;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:16px;
+    }
+
+    .topic-card{
+      display:block;
+      background:linear-gradient(180deg,#ffffff 0%, #fbfbff 100%);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:22px;
+      box-shadow:0 10px 24px rgba(43,48,86,.05);
+      transition:all .22s ease;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .topic-card:hover{
+      transform:translateY(-4px);
+      border-color:#cfc9ff;
+      box-shadow:0 18px 34px rgba(43,48,86,.10);
+    }
+
+    .topic-card::after{
+      content:"";
+      position:absolute;
+      right:-18px;top:-18px;
+      width:82px;height:82px;
+      border-radius:50%;
+      background:rgba(124,109,242,.08);
+    }
+
+    .topic-top{
+      display:flex;justify-content:space-between;align-items:flex-start;gap:14px;
+      margin-bottom:12px;
+    }
+
+    .topic-badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--primary);
+      font-weight:800;
+      font-size:.87rem;
+      border:1px solid #ddd9ff;
+    }
+
+    .arrow{
+      width:42px;height:42px;border-radius:14px;
+      display:grid;place-items:center;
+      background:#fff;
+      border:1px solid var(--line);
+      color:var(--primary);
+      font-size:1.15rem;
+      font-weight:900;
+      flex:0 0 auto;
+    }
+
+    .topic-card h3{
+      margin:0 0 8px;
+      color:#242d4f;
+      font-size:1.2rem;
+      line-height:1.35;
+      position:relative;
+      z-index:1;
+    }
+
+    .topic-card p{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size:.95rem;
+      position:relative;
+      z-index:1;
+    }
+
+    .topic-footer{
+      display:flex;justify-content:space-between;align-items:center;gap:10px;
+      position:relative;z-index:1;
+      flex-wrap:wrap;
+    }
+
+    .mini-pill{
+      padding:7px 11px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid var(--line);
+      font-size:.82rem;
+      color:#495266;
+      font-weight:700;
+    }
+
+    .cta{
+      display:inline-flex;align-items:center;gap:8px;
+      color:var(--primary);
+      font-weight:800;
+      font-size:.92rem;
+    }
+
+    .summary{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      margin-top:6px;
+    }
+
+    .summary-box{
+      background:#fbfbfd;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+      text-align:center;
+    }
+
+    .summary-box strong{
+      display:block;
+      font-size:1.45rem;
+      color:var(--primary);
+      margin-bottom:5px;
+    }
+
+    .note{
+      margin-top:18px;
+      padding:16px 18px;
+      border-radius:16px;
+      background:#fff9eb;
+      border:1px solid #f5dfae;
+      color:#805400;
+      font-weight:600;
+    }
+
+    footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:.9rem;
+      padding:8px 0 34px;
+    }
+
+    @media(max-width:900px){
+      .grid{grid-template-columns:1fr}
+      .summary{grid-template-columns:repeat(2,1fr)}
+    }
+
+    @media(max-width:640px){
+      .hero{padding:32px 24px;margin-top:18px}
+      .section-card{padding:22px}
+      .section-sub{margin-left:0}
+      .summary{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header class="hero">
+      <div class="eyebrow">🧠 Matematika Humaniora</div>
+      <h1>Logika Matematika II</h1>
+      <p>
+        Halaman ini berisi kumpulan materi <strong>Logika Matematika II</strong>.
+        Pengguna dapat memilih topik yang ingin dipelajari, lalu langsung masuk
+        ke halaman materi yang telah disiapkan. Materi mencakup implikasi,
+        konvers–invers–kontraposisi, biimplikasi, tabel kebenaran gabungan,
+        ekuivalensi logis, tautologi–kontradiksi–kontingensi, dan argumentasi logis.
+      </p>
+      <div class="hero-meta">
+        <span class="hero-pill">📚 7 Topik Materi</span>
+        <span class="hero-pill">📝 Contoh Soal & Pembahasan</span>
+        <span class="hero-pill">🎯 Kuis Interaktif</span>
+      </div>
+    </header>
+
+    <section class="section-card">
+      <div class="section-head">
+        <div class="section-icon">📘</div>
+        <h2>Daftar Topik Logika Matematika II</h2>
+      </div>
+      <p class="section-sub">
+        Klik salah satu topik di bawah ini untuk langsung masuk ke halaman materi.
+      </p>
+
+      <div class="grid">
+        <a class="topic-card" href="logika_matematika_II_1_implikasi.html">
+          <div class="topic-top">
+            <span class="topic-badge">1 • Implikasi</span>
+            <span class="arrow">→</span>
+          </div>
+          <h3>Implikasi</h3>
+          <p>
+            Memahami bentuk “jika p, maka q”, simbol <strong>p → q</strong>,
+            tabel kebenaran implikasi, dan penerapannya dalam situasi sehari-hari.
+          </p>
+          <div class="topic-footer">
+            <span class="mini-pill">Konsep Dasar</span>
+            <span class="cta">Buka Materi ↗</span>
+          </div>
+        </a>
+
+        <a class="topic-card" href="logika_matematika_II_2_konvers_invers_kontraposisi.html">
+          <div class="topic-top">
+            <span class="topic-badge">2 • Konvers, Invers, dan Kontraposisi</span>
+            <span class="arrow">→</span>
+          </div>
+          <h3>Konvers, Invers, dan Kontraposisi</h3>
+          <p>
+            Mengenali perubahan bentuk dari implikasi serta memahami hubungan
+            ekuivalensi antara implikasi, konvers, invers, dan kontraposisi.
+          </p>
+          <div class="topic-footer">
+            <span class="mini-pill">Transformasi Implikasi</span>
+            <span class="cta">Buka Materi ↗</span>
+          </div>
+        </a>
+
+        <a class="topic-card" href="logika_matematika_II_3_biimplikasi.html">
+          <div class="topic-top">
+            <span class="topic-badge">3 • Biimplikasi</span>
+            <span class="arrow">→</span>
+          </div>
+          <h3>Biimplikasi</h3>
+          <p>
+            Mempelajari pernyataan “jika dan hanya jika”, simbol
+            <strong>p ↔ q</strong>, dan hubungan dua arah dalam logika.
+          </p>
+          <div class="topic-footer">
+            <span class="mini-pill">Hubungan Dua Arah</span>
+            <span class="cta">Buka Materi ↗</span>
+          </div>
+        </a>
+
+        <a class="topic-card" href="logika_matematika_II_4_tabel_kebenaran_gabungan.html">
+          <div class="topic-top">
+            <span class="topic-badge">4 • Tabel Kebenaran Gabungan</span>
+            <span class="arrow">→</span>
+          </div>
+          <h3>Tabel Kebenaran Gabungan</h3>
+          <p>
+            Menggabungkan negasi, konjungsi, disjungsi, implikasi, dan biimplikasi
+            dalam satu ekspresi, kemudian menentukannya melalui tabel kebenaran.
+          </p>
+          <div class="topic-footer">
+            <span class="mini-pill">Operasi Gabungan</span>
+            <span class="cta">Buka Materi ↗</span>
+          </div>
+        </a>
+
+        <a class="topic-card" href="logika_matematika_II_5_ekuivalensi_logis.html">
+          <div class="topic-top">
+            <span class="topic-badge">5 • Ekuivalensi Logis</span>
+            <span class="arrow">→</span>
+          </div>
+          <h3>Ekuivalensi Logis</h3>
+          <p>
+            Mempelajari kapan dua pernyataan dianggap setara secara logis,
+            termasuk bentuk-bentuk ekuivalensi penting dalam logika matematika.
+          </p>
+          <div class="topic-footer">
+            <span class="mini-pill">Kesetaraan Logika</span>
+            <span class="cta">Buka Materi ↗</span>
+          </div>
+        </a>
+
+        <a class="topic-card" href="logika_matematika_II_6_tautologi_kontradiksi_kontingensi.html">
+          <div class="topic-top">
+            <span class="topic-badge">6 • Tautologi, Kontradiksi, dan Kontingensi</span>
+            <span class="arrow">→</span>
+          </div>
+          <h3>Tautologi, Kontradiksi, dan Kontingensi</h3>
+          <p>
+            Mengenali bentuk logika yang selalu benar, selalu salah, atau memiliki
+            campuran nilai kebenaran melalui analisis tabel kebenaran.
+          </p>
+          <div class="topic-footer">
+            <span class="mini-pill">Pola Nilai Kebenaran</span>
+            <span class="cta">Buka Materi ↗</span>
+          </div>
+        </a>
+
+        <a class="topic-card" href="logika_matematika_II_7_argumentasi_logis.html">
+          <div class="topic-top">
+            <span class="topic-badge">7 • Argumentasi Logis</span>
+            <span class="arrow">→</span>
+          </div>
+          <h3>Argumentasi Logis</h3>
+          <p>
+            Memahami premis, kesimpulan, validitas argumen, serta pola-pola
+            penalaran seperti Modus Ponens, Modus Tollens, dan berbagai silogisme.
+          </p>
+          <div class="topic-footer">
+            <span class="mini-pill">Penalaran Formal</span>
+            <span class="cta">Buka Materi ↗</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="summary">
+        <div class="summary-box">
+          <strong>7</strong>
+          Topik Utama
+        </div>
+        <div class="summary-box">
+          <strong>35</strong>
+          Contoh Soal
+        </div>
+        <div class="summary-box">
+          <strong>35</strong>
+          Soal Kuis
+        </div>
+        <div class="summary-box">
+          <strong>1</strong>
+          Halaman Navigasi
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>Catatan:</strong> agar semua tautan berfungsi dengan baik,
+        file HTML ini sebaiknya ditempatkan dalam folder yang sama dengan seluruh
+        file materi Logika Matematika II.
+      </div>
+    </section>
+
+    <footer>
+      <strong>Matematika Humaniora</strong> • Halaman Topik Logika Matematika II
+    </footer>
+
+  </div>
+</body>
+</html>
